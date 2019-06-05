@@ -22,4 +22,4 @@ if __name__ == '__main__':
     while True:
         new_packet = game_listener.get_packet()
         telemetry_client.update(new_packet)
-        arduino_comm.send(telemetry_client.get_cur_rev())
+        arduino_comm.send(telemetry_client.get_rev())
