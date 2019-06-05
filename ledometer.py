@@ -19,7 +19,12 @@ if __name__ == '__main__':
     if sys.argv[1] in CODEMASTERS_GAMES:
         telemetry_client = codemasters.CodeMasters()
 
+    counter = 0 # slow down the communication
+
     while True:
         new_packet = game_listener.get_packet()
         telemetry_client.update(new_packet)
-        arduino_comm.send(telemetry_client.get_rev())
+        counter += 1
+        if counter == 5:
+            counter = 0
+            arduino_comm.send(telemetry_client.get_rev())

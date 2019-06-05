@@ -11,13 +11,13 @@
 #define LEDS_HIGH 3
 
 // color of each zone
-#define COLOR_LOW (CRGB(0, 255, 0))
-#define COLOR_MED (CRGB(0, 0, 0))
-#define COLOR_HIGH (CRGB(0, 0, 0))
+#define COLOR_LOW (CRGB(0, 30, 0))
+#define COLOR_MED (CRGB(30, 30, 0))
+#define COLOR_HIGH (CRGB(30, 0, 0))
 #define COLOR_BLACK (CRGB(0, 0, 0))
 
-#define TRESHOLD_LOW 0.65
-#define TRESHOLD_MED 0.8
+#define THRESHOLD_LOW 0.65
+#define THRESHOLD_MED 0.8
 #define THRESHOLD_HIGH 0.93
 
 CRGB leds[NUM_LEDS];
@@ -47,6 +47,7 @@ void setup()
 
 void loop()
 {
+    FastLED.show();
     delay(30);
 	if (Serial.available() > 0) // Waiting for request
 	{
@@ -64,18 +65,18 @@ void loop()
             }
         }
 
-        zone_part = (THRESHOLD_MED - TRESHOLD_LOW) / LEDS_MED;
+        zone_part = (THRESHOLD_MED - THRESHOLD_LOW) / LEDS_MED;
         for (int i = 0; i < LEDS_MED; i++) {
-            if (percent_RPM > TRESHOLD_LOW + zone_part * i) {
+            if (percent_RPM > THRESHOLD_LOW + zone_part * i) {
                 leds[i + LEDS_LOW] = COLOR_MED;
             } else {
                 leds[i + LEDS_LOW] = COLOR_BLACK;
             }
         }
 
-        zone_part = (THRESHOLD_HIGH - TRESHOLD_MED) / LEDS_HIGH;
+        zone_part = (THRESHOLD_HIGH - THRESHOLD_MED) / LEDS_HIGH;
         for (int i = 0; i < LEDS_HIGH; i++) {
-            if (percent_RPM > TRESHOLD_MED + zone_part * i) {
+            if (percent_RPM > THRESHOLD_MED + zone_part * i) {
                 leds[i + LEDS_LOW + LEDS_MED] = COLOR_HIGH;
             } else {
                 leds[i + LEDS_LOW + LEDS_MED] = COLOR_BLACK;
