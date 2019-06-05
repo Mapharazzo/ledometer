@@ -11,16 +11,19 @@ class CodeMasters(GameTelemetry):
         self.rpm_max = 0
 
     def get_speed(self):
-        return self.speed
+        return (self.speed * 3.6)
 
     def get_rev(self):
-        return [self.rpm, self.rpm_max]
+        return (self.rpm * 10, self.rpm_max * 10)
     
     def get_gear(self):
-        return self.gear
+        if self.gear == 10:
+            return -1.0
+        else:
+            return self.gear
 
     def update(self, packet):
-        NUM_ITEMS = 64  # game specific
+        NUM_ITEMS = 64
         SIZE_ITEM = 4
         
         data = []
