@@ -1,6 +1,0 @@
-{
-    "board": "arduino:avr:uno",
-    "port": "COM3",
-    "sketch": "leddisplay.ino",
-    "programmer": "AVR ISP"
-}
